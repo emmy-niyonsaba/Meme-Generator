@@ -31,7 +31,7 @@ const Content = () => {
   }
 
   return (
-    <div className="min-h-screen  bg-gradient-to-br from-purple-50 to-purple-100 flex items-center justify-center p-6">
+    <div className="min-h-screen  from-purple-50 to-purple-100 flex items-center justify-center p-6">
       <div className="bg-white shadow-xl rounded-2xl p-8 max-w-2xl w-full border border-purple-100">
         
         <h2 className="text-2xl font-bold text-purple-700 mb-6 text-center">
