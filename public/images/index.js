@@ -1,0 +1,1 @@
+export {default as log} from '/public/images/log.png'
