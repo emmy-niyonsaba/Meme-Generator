@@ -36,7 +36,8 @@ const MemeForm = ({ meme, handleChange, getNewImage }) => {
 
       <button
         onClick={getNewImage}
-        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-xl transition duration-300 shadow-md text-center"
+        className="w-full bg-purple-600 hover:bg-purple-700 hover:cursor-pointer
+         text-white font-semibold py-3 rounded-xl transition duration-300 shadow-md text-center"
       >
         Get New Meme Image
       </button>

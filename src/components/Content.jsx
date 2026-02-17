@@ -1,16 +1,43 @@
-import { useState } from "react"
-import { images } from "/public/images"
+import { useState, useEffect } from "react"
 import MemeForm from "./MemeForm"
 import MemeDisplay from "./MemeDisplay"
 
 
 const Content = () => {
 
+const [memes, setMemes] = useState([])
+
+useEffect(() => {
+  const getMemes = async () => {
+    try {
+      const res = await fetch("https://api.imgflip.com/get_memes")
+      if (!res.ok) throw new Error("Failed to fetch memes")
+      const data = await res.json()
+      setMemes(data.data.memes)
+    } catch (error) {
+      console.error("Error fetching memes:", error)
+    }
+  }
+  getMemes()
+}, [])
+
   const [meme, setMeme] = useState({
     topText: "",
     bottomText: "",
-    randomImage: images[Math.floor(Math.random() * images.length)]
+    randomImage: ""
   })
+
+  useEffect(() => {
+    if (memes.length > 0) {
+      const randomIndex = Math.floor(Math.random() * memes.length)
+      setMeme(prev => ({
+        ...prev,
+        topText: `${memes[randomIndex].name}`,
+        randomImage: memes[randomIndex].url
+      }))
+    }
+  }, [memes])
+
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -22,12 +49,15 @@ const Content = () => {
   }
 
   const getNewImage = () => {
-    const random = images[Math.floor(Math.random() * images.length)]
+    alert("New meme image generated!")
+    if (memes.length > 0) {
+      const random = memes[Math.floor(Math.random() * memes.length)].url
 
-    setMeme(prev => ({
-      ...prev,
-      randomImage: random
-    }))
+      setMeme(prev => ({
+        ...prev,
+        randomImage: random
+      }))
+    }
   }
 
   return (
