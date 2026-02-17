@@ -1,5 +1,5 @@
 
-const MemeForm = ({ meme, handleChange, getNewImage }) => {
+const MemeForm = ({ meme, handleChange, getNewImage, loading }) => {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-6 mb-6">
@@ -36,10 +36,10 @@ const MemeForm = ({ meme, handleChange, getNewImage }) => {
 
       <button
         onClick={getNewImage}
-        className="w-full bg-purple-600 hover:bg-purple-700 hover:cursor-pointer
-         text-white font-semibold py-3 rounded-xl transition duration-300 shadow-md text-center"
+        disabled={loading}
+        className={`w-full ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-purple-600 hover:bg-purple-700 hover:cursor-pointer'} text-white font-semibold py-3 rounded-xl transition duration-300 shadow-md text-center`}
       >
-        Get New Meme Image
+        {loading ? 'Loading Memes...' : 'Get New Meme Image'}
       </button>
     </>
   )

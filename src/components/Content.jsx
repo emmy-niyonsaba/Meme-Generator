@@ -6,6 +6,7 @@ import MemeDisplay from "./MemeDisplay"
 const Content = () => {
 
 const [memes, setMemes] = useState([])
+const [loading, setLoading] = useState(true)
 
 useEffect(() => {
   const getMemes = async () => {
@@ -14,8 +15,10 @@ useEffect(() => {
       if (!res.ok) throw new Error("Failed to fetch memes")
       const data = await res.json()
       setMemes(data.data.memes)
+      setLoading(false)
     } catch (error) {
       console.error("Error fetching memes:", error)
+      setLoading(false)
     }
   }
   getMemes()
@@ -49,13 +52,13 @@ useEffect(() => {
   }
 
   const getNewImage = () => {
-    alert("New meme image generated!")
     if (memes.length > 0) {
-      const random = memes[Math.floor(Math.random() * memes.length)].url
-
+      const randomIndex = Math.floor(Math.random() * memes.length)
+      const randomMeme = memes[randomIndex]
       setMeme(prev => ({
         ...prev,
-        randomImage: random
+        topText: randomMeme.name,
+        randomImage: randomMeme.url
       }))
     }
   }
@@ -72,6 +75,7 @@ useEffect(() => {
           meme={meme}
           handleChange={handleChange}
           getNewImage={getNewImage}
+          loading={loading}
         />
 
         <MemeDisplay meme={meme} />
